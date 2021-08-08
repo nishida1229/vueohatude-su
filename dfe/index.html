@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>じゃんけんゲーム</title>
+</head>
+<body>
+  <div id="app">
+    <h1>{{ result }}</h1>
+    <!-- 敵の手 -->
+    <div>
+      <img :src="enemyHandImage" >
+    </div>
+
+    <!-- 自分の手 -->
+    <button v-on:click="fight('goo')">guu</button>
+    <button v-on:click="fight('choki')">choki</button>
+    <button v-on:click="fight('paa')">paa</button>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script language="javascript" type="text/javascript">
+      new Vue({
+      el: '#app',
+      data: {
+        hand: ["goo", "choki", "paa"],
+        enemyHand: "",
+        enemyHandImage: "",
+        result: "いざしょうｖｙ"
+      },
+      methods: {
+        fight: function(myHand){
+          // 敵の手をランダムで決める
+          // 0,1,2のいずれかの数字をランダムで生成する配列から
+          let index = Math.floor(Math.random() * Math.floor(3));
+          this.enemyHand = this.hand[index];
+          if(this.enemyHand === "goo"){
+              this.enemyHandImage = "https://www.google.com/search?q=%E3%81%90%E3%83%BC&sxsrf=ALeKk01JUesC190I--vHEAuOxJgmWQ7k2w:1628434401393&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjMvKPw1qHyAhUmGKYKHVKFBSsQ_AUoAXoECAEQAw&biw=1173&bih=894#imgrc=pVJtSIQfwWuMbM";
+          }else if(this.enemyHand === "choki"){
+              this.enemyHandImage = "https://shop15-makeshop.akamaized.net/shopimages/shinanotent/000000000525_lgUwBM9.jpg";
+          }
+          else if(this.enemyHand === "paa"){
+              this.enemyHandImage = "https://t.pimg.jp/001/428/526/1/1428526.jpg";
+          }
+          this.enemyHandImage = "";
+          // 自分の手と敵の手を比較する
+          console.log('敵の手' + this.enemyHand);
+          console.log('自分の手' + myHand);
+          //　引き分け
+          if(myHand === this.enemyHand){
+            console.log('引き分け');
+            this.result = "hikiwake";
+          }
+          //価値判定
+          if(this.enemyHand === "goo" && myHand === "paa"){
+            console.log('価値');
+            this.result = "kati";
+          }
+          if(this.enemyHand === "choki" && myHand === "goo"){
+            console.log('価値');
+            this.result = "kati";
+          }
+          if(this.enemyHand === "paa" && myHand === "choki"){
+            console.log('価値');
+            this.result = "kati";
+          }
+
+          //まけはん
+          if(this.enemyHand === "goo" && myHand === "choki"){
+            console.log('負け');
+            this.result = "make";
+          }
+          if(this.enemyHand === "choki" && myHand === "paa"){
+            console.log('負け');
+            this.result = "make";
+          }
+          if(this.enemyHand === "paa" && myHand === "guu"){
+            console.log('負け');
+            this.result = "make";
+          }
+
+        }
+      }
+    })
+  </script>
+</body>
+</html>
